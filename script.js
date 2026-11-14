@@ -285,16 +285,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Event Listeners for Tab bar
+  // Event Listeners for Tab bar (interactive only after listening starts)
   if (tabBtnMeet) {
     tabBtnMeet.addEventListener('click', () => {
-      returnToMeetWithAlertDetails();
+      if (isListening) {
+        returnToMeetWithAlertDetails();
+      } else {
+        switchToMeetTab();
+      }
     });
   }
 
   if (tabBtnYoutube) {
     tabBtnYoutube.addEventListener('click', () => {
-      switchToYoutubeTab();
+      if (isListening) {
+        switchToYoutubeTab();
+      }
     });
   }
 
@@ -304,6 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Demo strictly starts ONLY when user clicks Start Listening
   if (listenBtn) {
     listenBtn.addEventListener('click', () => {
       if (isListening) {
@@ -327,16 +334,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Custom Name Changer
+  // Custom Name Changer (Updates active target name)
   if (changeTargetBtn && activeTargetInput && activeTargetNameDisplay) {
     changeTargetBtn.addEventListener('click', () => {
       const newName = activeTargetInput.value.trim();
       if (newName) {
         activeTargetNameDisplay.textContent = newName;
         activeTargetInput.value = '';
-        if (isListening) {
-          playAlertChime();
-        }
       }
     });
 
@@ -347,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // "See how it works" smooth scroll & trigger simulation
+  // "See how it works" smooth scroll only (does NOT auto-start demo)
   const seeHowItWorksBtn = document.getElementById('see-how-it-works-btn');
   if (seeHowItWorksBtn) {
     seeHowItWorksBtn.addEventListener('click', (e) => {
@@ -355,11 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const showcase = document.getElementById('product-showcase');
       if (showcase) {
         showcase.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => {
-          if (!isListening && listenBtn) {
-            startSimulation();
-          }
-        }, 800);
       }
     });
   }
