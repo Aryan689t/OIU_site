@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyAnswerBtn = document.getElementById('copy-answer-btn');
 
   let isListening = false;
+  let hasAlertFired = false;
   let timerToYoutube = null;
   let timerToAlert = null;
 
@@ -119,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Start Multitasking Simulation
   function startSimulation() {
     isListening = true;
+    hasAlertFired = false;
     const name = getCurrentTargetName();
 
     // 1. Update OiU Side Panel
@@ -179,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       timerToAlert = setTimeout(() => {
         if (!isListening) return;
 
+        hasAlertFired = true;
         const currentName = getCurrentTargetName();
 
         // Play crisp chime alert sound
@@ -242,13 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Stop Simulation
+  // Stop Simulation (turns static again, but tabs remain freely navigable)
   function stopSimulation() {
     isListening = false;
+    hasAlertFired = false;
     clearTimeout(timerToYoutube);
     clearTimeout(timerToAlert);
-
-    switchToMeetTab();
 
     listenBtn.classList.remove('bg-zinc-800', 'hover:bg-zinc-700', 'text-[#FFE600]', 'border', 'border-[#FFE600]/40');
     listenBtn.classList.add('bg-[#FFE600]', 'hover:bg-[#ECD500]', 'text-black');
@@ -283,12 +285,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (chromeNotification) {
       chromeNotification.classList.add('hidden');
     }
+
+    // Reset video tile speaker active ring and speech bubble to static
+    if (tileSpeakerPriya) {
+      tileSpeakerPriya.classList.remove('ring-4', 'ring-[#FFE600]', 'shadow-2xl', 'shadow-[#FFE600]/30');
+    }
+    if (priyaSpeakingDot) {
+      priyaSpeakingDot.classList.remove('bg-[#FFE600]', 'animate-ping');
+      priyaSpeakingDot.classList.add('bg-zinc-400');
+    }
+    if (teacherSpeechBubble) {
+      teacherSpeechBubble.classList.add('hidden');
+    }
+
+    // Reset YouTube captions to standard static lecture text
+    if (ytClosedCaptions) {
+      ytClosedCaptions.innerHTML = `
+        <span class="bg-black/85 text-yellow-300 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-lg border border-zinc-800 inline-block shadow-lg">
+          [Lecturer Audio]: "...so when a thread accesses an unmapped virtual address, the MMU triggers an interrupt..."
+        </span>
+      `;
+    }
+
+    // Reset Recent Mentions card to static hidden
+    if (mentionsHistoryCard) {
+      mentionsHistoryCard.classList.add('hidden');
+    }
   }
 
-  // Event Listeners for Tab bar (interactive only after listening starts)
+  // Event Listeners for Tab bar (always freely switchable before, during, and after demo)
   if (tabBtnMeet) {
     tabBtnMeet.addEventListener('click', () => {
-      if (isListening) {
+      if (isListening && hasAlertFired) {
         returnToMeetWithAlertDetails();
       } else {
         switchToMeetTab();
@@ -298,9 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (tabBtnYoutube) {
     tabBtnYoutube.addEventListener('click', () => {
-      if (isListening) {
-        switchToYoutubeTab();
-      }
+      switchToYoutubeTab();
     });
   }
 

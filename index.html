@@ -876,51 +876,167 @@
   </main>
 
   <!-- 9. FOOTER -->
-  <footer class="bg-black border-t border-zinc-900 py-10 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <!-- Left: Logo & Tagline -->
-      <div class="flex items-center gap-3">
-        <svg class="w-7 h-7 text-white" viewBox="0 0 32 32" fill="none">
-          <path d="M7 23V15C7 10.0294 11.0294 6 16 6C20.9706 6 25 10.0294 25 15V23" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="text-xl font-black text-white">OiU</span>
-        <span class="text-zinc-600">|</span>
-        <span class="text-xs sm:text-sm text-zinc-400 font-medium">Meeting Awareness Assistant</span>
-      </div>
-
-      <!-- Right: Nav links & Social Links -->
-      <div class="flex flex-col sm:flex-row items-center gap-6">
-        <nav class="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-zinc-400 font-medium">
-          <a href="#how-it-works" class="hover:text-[#FFE600] transition-colors">How it works</a>
-          <a href="#features" class="hover:text-[#FFE600] transition-colors">Features</a>
-          <a href="#guide" class="open-guide-btn hover:text-[#FFE600] transition-colors">Guide</a>
-          <a href="#faq" class="hover:text-[#FFE600] transition-colors">FAQ</a>
-        </nav>
-
-        <div class="hidden sm:block h-4 w-px bg-zinc-800"></div>
-
-        <!-- Social Icons: GitHub & LinkedIn -->
-        <div class="flex items-center gap-4 text-zinc-400">
-          <a href="https://github.com/Aryan689t" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:text-[#FFE600] transition-colors transform hover:scale-110" title="GitHub">
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+  <footer class="bg-black border-t border-zinc-900 pt-16 pb-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Top Section: Brand + "Star on GitHub" CTA -->
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-12 border-b border-zinc-800/80">
+        <div class="max-w-md">
+          <div class="flex items-center gap-3">
+            <svg class="w-8 h-8 text-white" viewBox="0 0 32 32" fill="none">
+              <path d="M7 23V15C7 10.0294 11.0294 6 16 6C20.9706 6 25 10.0294 25 15V23" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
+            <span class="text-2xl font-black tracking-tight text-white">OiU</span>
+          </div>
+          <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
+            The lightweight Chrome assistant that listens in your online meetings and alerts you the split-second your name or keywords are called.
+          </p>
+        </div>
+
+        <!-- Star on GitHub & Extension CTA Action Buttons -->
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="https://github.com/Aryan689t/OIU_site" target="_blank" rel="noopener noreferrer"
+             class="group bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-[#FFE600] text-white hover:text-[#FFE600] font-bold px-4 py-2.5 rounded-full inline-flex items-center gap-2 text-xs transition-all shadow-sm">
+            <svg class="w-4 h-4 text-[#FFE600] fill-current" viewBox="0 0 24 24">
+              <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.399 8.163L12 18.896l-7.333 3.866 1.399-8.163-5.934-5.784 8.2-1.192zm0 5.702l-2.232 4.523-4.991.725 3.612 3.521-.852 4.969 4.463-2.347 4.463 2.347-.852-4.969 3.612-3.521-4.991-.725z"/>
+            </svg>
+            <span>Star on GitHub</span>
+            <span class="bg-black/60 text-zinc-300 group-hover:text-white px-2 py-0.5 rounded-full text-[10px] font-mono border border-zinc-800">★ repo</span>
           </a>
-          <a href="https://www.linkedin.com/in/tathagat-aryan-4993a1286/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-[#FFE600] transition-colors transform hover:scale-110" title="LinkedIn">
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.94 0-1.7.76-1.7 1.7s.76 1.7 1.7 1.7 1.7-.76 1.7-1.7-.76-1.7-1.7-1.7z"/>
+
+          <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer"
+             class="bg-[#FFE600] hover:bg-[#ECD500] text-black font-extrabold px-5 py-2.5 rounded-full inline-flex items-center gap-2 text-xs transition-transform hover:-translate-y-0.5 shadow-md shadow-[#FFE600]/20">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.89-2.607zm14.238 3.342a5.455 5.455 0 0 1 2.376 7.643L13.192 24h.808c6.627 0 12-5.373 12-12 0-.825-.084-1.63-.242-2.408H12.836l3.333 5.772zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/>
             </svg>
+            <span>Add to Chrome</span>
           </a>
         </div>
       </div>
-    </div>
 
-    <!-- Bottom sub-footer -->
-    <div class="max-w-7xl mx-auto mt-6 pt-6 border-t border-zinc-900/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500">
-      <div>&copy; 2026 OiU. Built for distraction-free, focused meetings.</div>
-      <div class="flex items-center gap-1">
-        Created by <a href="https://github.com/Aryan689t" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-[#FFE600] font-semibold transition-colors">Aryan</a>
+      <!-- Middle Grid: 4 Columns -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-zinc-800/80">
+        
+        <!-- Column 1: Product Navigation -->
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-wider text-white mb-4">Product</h4>
+          <ul class="space-y-2.5 text-xs text-zinc-400">
+            <li><a href="#how-it-works" class="hover:text-[#FFE600] transition-colors">How It Works</a></li>
+            <li><a href="#features" class="hover:text-[#FFE600] transition-colors">Features & Triggers</a></li>
+            <li><a href="#product-showcase" class="hover:text-[#FFE600] transition-colors">Interactive Live Demo</a></li>
+            <li><a href="#guide" class="open-guide-btn hover:text-[#FFE600] transition-colors">Quick-Start Guide</a></li>
+            <li><a href="#faq" class="hover:text-[#FFE600] transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Supported Platforms -->
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-wider text-white mb-4">Supported Platforms</h4>
+          <ul class="space-y-2.5 text-xs text-zinc-400">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span>Google Meet</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+              <span>Microsoft Teams</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+              <span>Zoom Web Client</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>
+              <span>Google Chrome & Brave</span>
+            </li>
+            <li class="flex items-center gap-2 text-zinc-500">
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
+              <span>Discord (Coming soon)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Developer & Open Source -->
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-wider text-white mb-4">Developer</h4>
+          <ul class="space-y-2.5 text-xs text-zinc-400">
+            <li>
+              <a href="https://github.com/Aryan689t/OIU_site" target="_blank" rel="noopener noreferrer" class="hover:text-[#FFE600] transition-colors flex items-center gap-1.5">
+                <span>GitHub Repository</span>
+                <span class="text-[10px] text-zinc-600">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Aryan689t/OIU_site/issues" target="_blank" rel="noopener noreferrer" class="hover:text-[#FFE600] transition-colors flex items-center gap-1.5">
+                <span>Report an Issue</span>
+                <span class="text-[10px] text-zinc-600">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Aryan689t/OIU_site/issues/new" target="_blank" rel="noopener noreferrer" class="hover:text-[#FFE600] transition-colors flex items-center gap-1.5">
+                <span>Request a Feature</span>
+                <span class="text-[10px] text-zinc-600">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:tathagataryan2006@gmail.com?subject=OiU%20Feedback" class="hover:text-[#FFE600] transition-colors flex items-center gap-1.5">
+                <span>Direct Feedback</span>
+                <span class="text-[10px] text-zinc-600">✉</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Connect & Socials -->
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-wider text-white mb-4">Connect</h4>
+          <p class="text-xs text-zinc-500 mb-3">Created and maintained by Tathagat Aryan.</p>
+          <div class="flex items-center gap-3 mb-4">
+            <!-- GitHub Icon -->
+            <a href="https://github.com/Aryan689t" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+               class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-[#FFE600] text-zinc-400 hover:text-[#FFE600] flex items-center justify-center transition-colors" title="GitHub">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
+
+            <!-- LinkedIn Icon -->
+            <a href="https://www.linkedin.com/in/tathagat-aryan-4993a1286/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+               class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-[#FFE600] text-zinc-400 hover:text-[#FFE600] flex items-center justify-center transition-colors" title="LinkedIn">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.94 0-1.7.76-1.7 1.7s.76 1.7 1.7 1.7 1.7-.76 1.7-1.7-.76-1.7-1.7-1.7z"/>
+              </svg>
+            </a>
+
+            <!-- Mail Icon -->
+            <a href="mailto:tathagataryan2006@gmail.com" aria-label="Email"
+               class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-[#FFE600] text-zinc-400 hover:text-[#FFE600] flex items-center justify-center transition-colors" title="Email">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </a>
+          </div>
+          <a href="mailto:tathagataryan2006@gmail.com" class="text-xs text-zinc-400 hover:text-[#FFE600] transition-colors break-all">
+            tathagataryan2006@gmail.com
+          </a>
+        </div>
+
       </div>
+
+      <!-- Bottom Sub-Footer: Copyright + Privacy Note + Attribution -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+        <div>
+          &copy; 2026 OiU. Built for distraction-free, focused meetings.
+        </div>
+        <div class="flex items-center gap-4 text-zinc-500">
+          <span class="hover:text-zinc-400 transition-colors cursor-pointer" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})">Privacy & Permissions</span>
+          <span>•</span>
+          <a href="https://github.com/Aryan689t/OIU_site" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-400 transition-colors">MIT License</a>
+          <span>•</span>
+          <span>Crafted with <span class="text-[#FFE600]">⚡</span> by <a href="https://github.com/Aryan689t" target="_blank" rel="noopener noreferrer" class="text-zinc-300 hover:text-[#FFE600] font-bold transition-colors">Aryan</a></span>
+        </div>
+      </div>
+
     </div>
   </footer>
 
