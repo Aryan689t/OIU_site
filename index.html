@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OiU — Never Miss Your Name Again | Meeting Awareness Assistant</title>
+  <meta name="description" content="OiU listens in your online meetings and alerts you instantly whenever your name or set keywords are mentioned.">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#FFE600',
+              yellowHover: '#ECD500',
+              dark: '#000000',
+              card: '#121316',
+              meet: '#1D1E22',
+              border: '#27272A',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-black text-white font-sans antialiased selection:bg-[#FFE600] selection:text-black">
+
+  <!-- 1. NAVIGATION BAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-black/80 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <svg class="w-8 h-8 text-white transition-transform group-hover:scale-105" viewBox="0 0 32 32" fill="none">
+          <path d="M7 23V15C7 10.0294 11.0294 6 16 6C20.9706 6 25 10.0294 25 15V23" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-2xl font-black tracking-tight text-white">OiU</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-zinc-300">
+        <a href="#how-it-works" class="hover:text-[#FFE600] transition-colors">How it works</a>
+        <a href="#features" class="hover:text-[#FFE600] transition-colors">Features</a>
+        <a href="#guide" class="open-guide-btn hover:text-[#FFE600] transition-colors">Guide</a>
+        <a href="#faq" class="hover:text-[#FFE600] transition-colors">FAQ</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="hidden sm:flex items-center">
+        <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer"
+           class="bg-[#FFE600] hover:bg-[#ECD500] text-black font-extrabold px-6 py-2.5 rounded-full inline-flex items-center gap-2 text-sm transition-all transform hover:-translate-y-0.5 shadow-md shadow-[#FFE600]/20">
+          <!-- Chrome Icon -->
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.89-2.607zm14.238 3.342a5.455 5.455 0 0 1 2.376 7.643L13.192 24h.808c6.627 0 12-5.373 12-12 0-.825-.084-1.63-.242-2.408H12.836l3.333 5.772zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/>
+          </svg>
+          Add to Chrome
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" aria-label="Toggle menu" class="md:hidden p-2 text-zinc-300 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-zinc-950 border-b border-zinc-800 px-6 py-4 space-y-3">
+      <a href="#how-it-works" class="block text-zinc-300 hover:text-[#FFE600] font-medium py-1">How it works</a>
+      <a href="#features" class="block text-zinc-300 hover:text-[#FFE600] font-medium py-1">Features</a>
+      <a href="#guide" class="open-guide-btn block text-zinc-300 hover:text-[#FFE600] font-medium py-1">Guide</a>
+      <a href="#faq" class="block text-zinc-300 hover:text-[#FFE600] font-medium py-1">FAQ</a>
+      <div class="pt-2">
+        <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer"
+           class="w-full bg-[#FFE600] text-black font-extrabold px-5 py-2.5 rounded-full flex items-center justify-center gap-2 text-sm">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.89-2.607zm14.238 3.342a5.455 5.455 0 0 1 2.376 7.643L13.192 24h.808c6.627 0 12-5.373 12-12 0-.825-.084-1.63-.242-2.408H12.836l3.333 5.772zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/>
+          </svg>
+          Add to Chrome
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. HERO SECTION -->
+    <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+      <!-- Glow background -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] yellow-glow-subtle pointer-events-none -z-10"></div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        <!-- Tagline Pill -->
+        <div class="inline-flex items-center gap-2 mb-6">
+          <span class="w-2.5 h-2.5 bg-[#FFE600] rounded-none"></span>
+          <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-zinc-300">
+            Meeting Awareness Assistant
+          </span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-none mb-6">
+          Never miss<br>
+          <span class="relative inline-block mt-2 mb-2">
+            <span class="highlight-badge text-black px-4 sm:px-6 py-1 sm:py-2">YOUR NAME</span>
+            <!-- Action Rays / Comic Sparks -->
+            <span class="action-sparks -top-4 -right-7 sm:-top-6 sm:-right-9">
+              <svg class="w-8 h-8 sm:w-10 sm:h-10 text-[#FFE600]" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
+                <line x1="8" y1="20" x2="2" y2="24" />
+                <line x1="14" y1="12" x2="9" y2="4" />
+                <line x1="22" y1="10" x2="27" y2="2" />
+              </svg>
+            </span>
+          </span><br>
+          Again.
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 font-normal leading-relaxed mb-10">
+          OiU listens in your online meetings and alerts you instantly whenever your name or set keywords are mentioned.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer"
+             class="w-full sm:w-auto bg-[#FFE600] hover:bg-[#ECD500] text-black font-extrabold px-8 py-3.5 rounded-full inline-flex items-center justify-center gap-2.5 text-base transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#FFE600]/25">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.89-2.607zm14.238 3.342a5.455 5.455 0 0 1 2.376 7.643L13.192 24h.808c6.627 0 12-5.373 12-12 0-.825-.084-1.63-.242-2.408H12.836l3.333 5.772zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/>
+            </svg>
+            Add OiU to Chrome
+          </a>
+
+          <button id="see-how-it-works-btn"
+             class="w-full sm:w-auto bg-[#111114] hover:bg-zinc-900 border border-zinc-800 text-white font-semibold px-7 py-3.5 rounded-full inline-flex items-center justify-center gap-2.5 text-base transition-colors">
+            <!-- Outlined Play Icon -->
+            <svg class="w-4 h-4 text-white fill-none stroke-current" stroke-width="2.5" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            See how it works
+          </button>
+        </div>
+
+        <!-- 3 Feature Badges in Hero -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-left pt-2 border-t border-zinc-900/80">
+          <!-- 1. Real-time detection -->
+          <div class="flex items-start gap-3.5">
+            <div class="mt-1 text-[#FFE600]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 02-3-3V5a3 3 0 116 0v6a3 3 0 02-3 3z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-white tracking-wide">Real-time detection</h2>
+              <p class="text-xs text-zinc-400 mt-0.5">Catches your name as it's said.</p>
+            </div>
+          </div>
+
+          <!-- 2. Instant alerts -->
+          <div class="flex items-start gap-3.5">
+            <div class="mt-1 text-[#FFE600]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-white tracking-wide">Instant alerts</h2>
+              <p class="text-xs text-zinc-400 mt-0.5">Get a visual and sound notification.</p>
+            </div>
+          </div>
+
+          <!-- 3. Custom triggers -->
+          <div class="flex items-start gap-3.5">
+            <div class="mt-1 text-[#FFE600]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-white tracking-wide">Custom triggers</h2>
+              <p class="text-xs text-zinc-400 mt-0.5">Track names, IDs, or keywords.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PRODUCT SHOWCASE / MULTI-TAB CHROME BROWSER SIMULATOR -->
+    <section id="product-showcase" class="relative py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <!-- Angled Yellow Card Peeking Behind -->
+      <div class="angled-yellow-card"></div>
+
+      <!-- Main Mockup Container -->
+      <div class="mockup-container p-3 sm:p-5 relative overflow-hidden">
+
+        <!-- Real Chrome Window Wrapper -->
+        <div class="bg-[#121316] rounded-xl overflow-hidden border border-zinc-800 shadow-2xl relative">
+
+          <!-- Chrome Tab Bar -->
+          <div class="h-11 bg-[#0A0A0C] px-3 pt-2 flex items-center justify-between border-b border-zinc-800/80 select-none">
+            <!-- Window Control Dots + Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+              <!-- Window Dots -->
+              <div class="flex items-center gap-2 pr-3 pl-1">
+                <span class="w-3 h-3 rounded-full bg-[#FF5F56]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#FFBD2E]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#27C93F]"></span>
+              </div>
+
+              <!-- Tab 1: Google Meet (Active Initially) -->
+              <div id="tab-btn-meet" class="chrome-tab chrome-tab-active px-3 py-1.5 flex items-center gap-2 text-xs font-medium cursor-pointer border-r border-zinc-800/40">
+                <!-- Google Meet Icon -->
+                <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+                </svg>
+                <span class="whitespace-nowrap">Google Meet — zyo-cecs</span>
+                <!-- Audio Wave Indicator on Tab -->
+                <span id="tab-meet-audio-indicator" class="hidden w-2 h-2 rounded-full bg-[#FFE600] animate-pulse"></span>
+                <span class="text-zinc-500 hover:text-zinc-300 ml-1">×</span>
+              </div>
+
+              <!-- Tab 2: YouTube Lecture (Inactive Initially) -->
+              <div id="tab-btn-youtube" class="chrome-tab chrome-tab-inactive px-3 py-1.5 flex items-center gap-2 text-xs font-medium cursor-pointer border-r border-zinc-800/40">
+                <!-- YouTube Icon -->
+                <svg class="w-3.5 h-3.5 text-red-500 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span class="whitespace-nowrap">YouTube — CS162 OS Lecture 14</span>
+                <span class="text-zinc-500 hover:text-zinc-300 ml-1">×</span>
+              </div>
+
+              <!-- New Tab Button -->
+              <button class="p-1 text-zinc-500 hover:text-zinc-300 text-xs">+</button>
+            </div>
+
+            <!-- Chrome Toolbar Right (OiU Extension Pin) -->
+            <div class="flex items-center gap-3">
+              <!-- OiU Pin Icon -->
+              <div class="flex items-center gap-1.5 bg-zinc-900 border border-zinc-700/60 rounded-md px-2 py-0.5">
+                <svg class="w-3.5 h-3.5 text-[#FFE600]" viewBox="0 0 32 32" fill="none">
+                  <path d="M7 23V15C7 10.0294 11.0294 6 16 6C20.9706 6 25 10.0294 25 15V23" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+                <span id="pin-badge-status" class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chrome URL & Navigation Bar -->
+          <div class="h-10 bg-[#141519] px-4 flex items-center justify-between border-b border-zinc-800 gap-3">
+            <div class="flex items-center gap-3 text-zinc-400 text-xs">
+              <span class="hover:text-white cursor-pointer">←</span>
+              <span class="hover:text-white cursor-pointer">→</span>
+              <span class="hover:text-white cursor-pointer">↻</span>
+            </div>
+
+            <!-- Omnibox URL -->
+            <div class="flex-1 max-w-2xl bg-black/60 border border-zinc-700/60 rounded-md px-3 py-1 flex items-center justify-between text-xs text-zinc-300 font-mono">
+              <div class="flex items-center gap-2">
+                <svg class="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                </svg>
+                <span id="chrome-omnibox-url">meet.google.com/zyo-cecs-wtg</span>
+              </div>
+              <span class="text-zinc-500 text-[10px]">☆</span>
+            </div>
+
+            <div class="flex items-center gap-2 text-zinc-400">
+              <span class="text-xs">⋮</span>
+            </div>
+          </div>
+
+          <!-- ================= TAB VIEW 1: GOOGLE MEET + OIU SIDE PANEL ================= -->
+          <div id="view-meet-tab" class="grid grid-cols-1 lg:grid-cols-12 gap-0 relative">
+
+            <!-- Left Meet Call Window (8 cols) -->
+            <div class="lg:col-span-8 bg-[#18191D] flex flex-col relative border-r border-zinc-800">
+
+              <!-- 2x2 Meet Video Grid -->
+              <div class="p-3 grid grid-cols-2 gap-3 flex-1 bg-[#16171B] min-h-[360px]">
+                <!-- Tile 1: Aryan (Target User) -->
+                <div class="relative bg-zinc-900 rounded-lg overflow-hidden aspect-[4/3] group border border-zinc-800">
+                  <img src="assets/participant-1.jpg?v=2" alt="Aryan" class="w-full h-full object-cover filter brightness-95">
+                  <div class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-medium text-white flex items-center gap-1.5">
+                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 02-3-3V5a3 3 0 116 0v6a3 3 0 02-3 3z"/>
+                    </svg>
+                    Aryan (You)
+                  </div>
+                </div>
+
+                <!-- Tile 2: Priya (The Teacher / Speaker who asks the question) -->
+                <div id="tile-speaker-priya" class="relative bg-zinc-900 rounded-lg overflow-hidden aspect-[4/3] group border border-zinc-800 transition-all duration-300">
+                  <img src="assets/participant-2.jpg?v=2" alt="Priya" class="w-full h-full object-cover filter brightness-95">
+                  
+                  <!-- Live Speech Bubble on Teacher when Question is Asked -->
+                  <div id="teacher-speech-bubble" class="hidden absolute top-2 left-2 right-2 bg-[#FFE600] text-black p-2 rounded-lg text-[10px] font-bold shadow-lg z-20 speech-bubble-bottom">
+                    💬 "Aryan, could you explain what happens when a page fault occurs?"
+                  </div>
+
+                  <!-- Name Tag -->
+                  <div class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-medium text-white flex items-center gap-1.5">
+                    <span id="priya-speaking-dot" class="w-1.5 h-1.5 rounded-full bg-zinc-400"></span>
+                    Priya S. (Instructor)
+                  </div>
+                </div>
+
+                <!-- Tile 3: Rohan -->
+                <div class="relative bg-zinc-900 rounded-lg overflow-hidden aspect-[4/3] group border border-zinc-800">
+                  <img src="assets/participant-3.jpg?v=2" alt="Rohan" class="w-full h-full object-cover filter brightness-95">
+                  <div class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-medium text-white flex items-center gap-1.5">
+                    <svg class="w-3 h-3 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    </svg>
+                    Rohan M.
+                  </div>
+                </div>
+
+                <!-- Tile 4: Ananya -->
+                <div class="relative bg-zinc-900 rounded-lg overflow-hidden aspect-[4/3] group border border-zinc-800">
+                  <img src="assets/participant-4.jpg?v=2" alt="Ananya" class="w-full h-full object-cover filter brightness-95">
+                  <div class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-medium text-white flex items-center gap-1.5">
+                    Ananya K.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Meet Bottom Toolbar -->
+              <div class="h-12 bg-[#121316] px-4 flex items-center justify-between border-t border-zinc-800 text-xs">
+                <span class="text-zinc-400 font-medium hidden sm:inline">12:44 PM | zyo-cecs-wtg</span>
+                <div class="flex items-center gap-2 mx-auto sm:mx-0">
+                  <button id="meet-mic-btn" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-white" title="Toggle Mic">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 02-3-3V5a3 3 0 116 0v6a3 3 0 02-3 3z"/>
+                    </svg>
+                  </button>
+                  <button class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                  </button>
+                  <button class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-white">✋</button>
+                  <button class="w-11 h-8 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center text-white">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.74-1.69-1.36-2.67-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right OiU Side Panel (4 cols) -->
+            <div class="lg:col-span-4 bg-[#111215] p-5 flex flex-col justify-between">
+              <div>
+                <!-- Extension Header -->
+                <div class="flex items-center justify-between pb-4 border-b border-zinc-800/80 mb-4">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-6 h-6 text-white" viewBox="0 0 32 32" fill="none">
+                      <path d="M7 23V15C7 10.0294 11.0294 6 16 6C20.9706 6 25 10.0294 25 15V23" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                    <span class="font-extrabold text-lg text-white">OiU</span>
+                  </div>
+                  <!-- Status Badge -->
+                  <div id="extension-status-badge" class="px-2.5 py-1 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-zinc-400"></span>
+                    <span class="text-zinc-400 text-xs font-medium">Offline</span>
+                  </div>
+                </div>
+
+                <!-- Active Target Card -->
+                <div class="bg-black/40 rounded-lg p-3.5 border border-zinc-800 mb-3">
+                  <div class="text-[11px] font-bold text-zinc-400 tracking-wider uppercase mb-1">Active Target</div>
+                  <div id="active-target-display" class="text-xl font-extrabold text-white">Aryan</div>
+                  <div class="text-xs text-zinc-400 mt-0.5">ID: 157</div>
+
+                  <!-- Audio Waveform (Visible during listening) -->
+                  <div id="audio-wave-visualizer" class="hidden items-center gap-1.5 mt-3 pt-3 border-t border-zinc-800">
+                    <span class="text-[11px] text-[#FFE600] font-semibold">Monitoring Audio:</span>
+                    <div class="flex items-end gap-1 h-5">
+                      <span class="w-1 bg-[#FFE600] rounded-full wave-bar-1"></span>
+                      <span class="w-1 bg-[#FFE600] rounded-full wave-bar-2"></span>
+                      <span class="w-1 bg-[#FFE600] rounded-full wave-bar-3"></span>
+                      <span class="w-1 bg-[#FFE600] rounded-full wave-bar-4"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mentions History Card (Populated after alert!) -->
+                <div id="mentions-history-card" class="hidden bg-zinc-900/90 border border-[#FFE600]/40 rounded-lg p-3 mb-3">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[11px] font-extrabold text-[#FFE600] uppercase tracking-wider flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-[#FFE600] animate-ping"></span>
+                      Recent Mention (1)
+                    </span>
+                    <span class="text-[10px] text-zinc-400">Just now</span>
+                  </div>
+                  <div class="bg-black/60 rounded p-2 text-xs border border-zinc-800">
+                    <div class="font-bold text-zinc-200">Priya S. (Instructor):</div>
+                    <div id="history-transcript-text" class="text-[#FFE600] font-medium text-[11px] mt-1">
+                      "Aryan, could you explain what happens when a page fault occurs during execution?"
+                    </div>
+                  </div>
+                  <div class="mt-2 flex gap-2">
+                    <button id="copy-answer-btn" class="bg-zinc-800 hover:bg-zinc-700 text-[10px] text-zinc-200 px-2.5 py-1 rounded font-medium flex items-center gap-1">
+                      📋 Copy Context
+                    </button>
+                    <span class="text-[10px] text-emerald-400 flex items-center gap-1">
+                      ✓ Ready to reply
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Custom Name Changer Input -->
+                <div class="mb-4">
+                  <label for="custom-name-input" class="block text-[11px] text-zinc-400 font-medium mb-1.5">Test with your name or roll no:</label>
+                  <div class="flex gap-2">
+                    <input id="custom-name-input" type="text" placeholder="e.g. Rahul, 2024CS01..."
+                           class="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-zinc-500 w-full focus:outline-none focus:border-[#FFE600]">
+                    <button id="change-target-btn" class="bg-zinc-800 hover:bg-zinc-700 text-xs text-white font-semibold px-3 py-1.5 rounded-lg border border-zinc-700">
+                      Set
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Main Start / Stop Button -->
+              <div class="space-y-2.5 pt-1">
+                <button class="w-full bg-[#18191D] hover:bg-zinc-800 border border-zinc-700/60 text-white font-medium py-2 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
+                  Open Side Panel
+                  <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </button>
+
+                <button id="listen-toggle-btn"
+                        class="w-full bg-[#FFE600] hover:bg-[#ECD500] text-black font-extrabold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-[#FFE600]/20">
+                  <span id="listen-btn-text" class="flex items-center">
+                    <svg class="w-4 h-4 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 02-3-3V5a3 3 0 116 0v6a3 3 0 02-3 3z"></path>
+                    </svg>
+                    Start Listening
+                  </span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ================= TAB VIEW 2: YOUTUBE LECTURE SCREEN ================= -->
+          <div id="view-youtube-tab" class="hidden relative bg-[#0F0F0F] min-h-[460px] flex-col p-4 sm:p-6">
+            
+            <!-- Real-World Chrome Desktop Notification (Slides In while on YouTube!) -->
+            <div id="chrome-desktop-notification" class="hidden absolute top-4 right-4 sm:right-6 z-50 bg-[#1F1F23] border-l-4 border-[#FFE600] rounded-xl shadow-2xl p-4 max-w-sm w-full border border-zinc-700/80 animate-notification">
+              <!-- Notif Header -->
+              <div class="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800">
+                <div class="flex items-center gap-2">
+                  <!-- Chrome Logo -->
+                  <svg class="w-4 h-4" viewBox="0 0 24 24">
+                    <path fill="#EA4335" d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0z"/>
+                    <path fill="#4285F4" d="M12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/>
+                    <path fill="#FBBC05" d="M1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.89-2.607z"/>
+                    <path fill="#34A853" d="M16.169 8.812a5.455 5.455 0 0 1 2.376 7.643L13.192 24h.808c6.627 0 12-5.373 12-12 0-.825-.084-1.63-.242-2.408H12.836l3.333 5.772z"/>
+                  </svg>
+                  <span class="text-[11px] font-bold text-zinc-300">Google Chrome • OiU Assistant</span>
+                </div>
+                <span class="text-[10px] text-zinc-500">Just now</span>
+              </div>
+
+              <!-- Notif Content -->
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FFE600] flex items-center justify-center flex-shrink-0 text-black font-black animate-bounce">
+                  🔔
+                </div>
+                <div>
+                  <h4 id="notif-target-title" class="text-xs font-black text-white">🚨 Aryan, you were mentioned in Meet!</h4>
+                  <p id="notif-target-body" class="text-xs text-zinc-300 mt-1 leading-snug">
+                    Priya S.: <em>"Aryan, could you explain what happens when a page fault occurs during execution?"</em>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Notif Switch Action Button -->
+              <div class="mt-3 pt-2 border-t border-zinc-800/80 flex items-center justify-between">
+                <span class="text-[10px] text-zinc-400">Google Meet tab</span>
+                <button id="notif-switch-back-btn" class="bg-[#FFE600] hover:bg-[#ECD500] text-black text-xs font-extrabold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all transform hover:scale-105 shadow-md shadow-[#FFE600]/30">
+                  Switch Back to Meet ↩
+                </button>
+              </div>
+            </div>
+
+            <!-- YouTube Video Player Canvas / Frame -->
+            <div class="bg-black rounded-xl overflow-hidden border border-zinc-800 relative aspect-video max-w-3xl mx-auto shadow-2xl flex flex-col justify-between">
+              
+              <!-- Video Screen Blackboard / Presentation -->
+              <div class="flex-1 flex flex-col items-center justify-center p-6 text-center relative bg-gradient-to-b from-[#181a20] to-[#0e1015]">
+                <div class="inline-block px-3 py-1 bg-red-600/20 text-red-400 text-[10px] font-bold rounded-full mb-3 uppercase tracking-wider">
+                  ▶ Playing Lecture Video
+                </div>
+                <h3 class="text-xl sm:text-2xl font-black text-white max-w-lg leading-snug">
+                  CS 162: Operating Systems — Virtual Memory Paging
+                </h3>
+                <div class="mt-3 font-mono text-xs text-zinc-400 bg-black/60 px-4 py-2 rounded-lg border border-zinc-800 text-left max-w-md w-full">
+                  <span class="text-emerald-400"># Memory Hierarchy Simulation</span><br>
+                  <span class="text-zinc-500">Page table lookup:</span> <span class="text-yellow-400">CR3 -> PML4 -> PDPT -> Page Fault!</span>
+                </div>
+
+                <!-- Closed Captions (CC) Overlay on Video -->
+                <div id="yt-closed-captions" class="absolute bottom-12 left-4 right-4 text-center">
+                  <span class="bg-black/85 text-yellow-300 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-lg border border-zinc-800 inline-block shadow-lg">
+                    [Lecturer Audio]: "...so when a thread accesses an unmapped virtual address, the MMU triggers an interrupt..."
+                  </span>
+                </div>
+              </div>
+
+              <!-- YouTube Custom Player Controls -->
+              <div class="bg-[#181818]/95 px-4 py-2 border-t border-zinc-800 flex flex-col gap-1.5">
+                <!-- Red Progress Bar -->
+                <div class="w-full bg-zinc-700 h-1 rounded-full overflow-hidden cursor-pointer">
+                  <div class="bg-red-600 h-full youtube-animated-progress"></div>
+                </div>
+
+                <!-- Buttons & Timestamp -->
+                <div class="flex items-center justify-between text-xs text-white">
+                  <div class="flex items-center gap-4">
+                    <button class="hover:text-red-500">⏸</button>
+                    <button class="hover:text-zinc-300">⏭</button>
+                    <div class="flex items-center gap-1.5">
+                      <span>🔊</span>
+                      <div class="w-12 h-1 bg-zinc-600 rounded">
+                        <div class="w-8 h-1 bg-white rounded"></div>
+                      </div>
+                    </div>
+                    <span class="text-zinc-400 font-mono text-[11px]">18:42 / 54:10</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-zinc-400">
+                    <span class="text-[10px] font-bold text-white bg-zinc-800 px-1 rounded">CC</span>
+                    <span>⚙️</span>
+                    <span>⛶</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- YouTube Video Metadata Row -->
+            <div class="max-w-3xl mx-auto w-full mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
+              <div>
+                <h4 class="text-sm font-bold text-white">CS 162: Operating Systems — Lecture 14: Virtual Memory & Page Tables</h4>
+                <div class="flex items-center gap-3 mt-1 text-xs text-zinc-400">
+                  <span class="font-semibold text-zinc-300">MIT OpenCourseWare</span>
+                  <span>•</span>
+                  <span>420K views</span>
+                  <span>•</span>
+                  <span>Streamed live</span>
+                </div>
+              </div>
+              <button class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-full">
+                Subscribe
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Callout Feature Badges on Right / Below Mockup -->
+      <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <!-- 1. Track name & IDs -->
+        <div class="bg-zinc-950/90 border border-zinc-800 p-3.5 rounded-xl flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#FFE600]/10 border border-[#FFE600]/30 flex items-center justify-center text-[#FFE600]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+          </div>
+          <span class="text-xs sm:text-sm font-bold text-white">Track name & IDs</span>
+        </div>
+
+        <!-- 2. Get instant alerts -->
+        <div class="bg-zinc-950/90 border border-zinc-800 p-3.5 rounded-xl flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#FFE600]/10 border border-[#FFE600]/30 flex items-center justify-center text-[#FFE600]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+          </div>
+          <span class="text-xs sm:text-sm font-bold text-white">Get instant alerts</span>
+        </div>
+
+        <!-- 3. Review mentions -->
+        <div class="bg-zinc-950/90 border border-zinc-800 p-3.5 rounded-xl flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#FFE600]/10 border border-[#FFE600]/30 flex items-center justify-center text-[#FFE600]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+            </svg>
+          </div>
+          <span class="text-xs sm:text-sm font-bold text-white">Review mentions</span>
+        </div>
+
+        <!-- 4. Start / stop listening -->
+        <div class="bg-zinc-950/90 border border-zinc-800 p-3.5 rounded-xl flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#FFE600]/10 border border-[#FFE600]/30 flex items-center justify-center text-[#FFE600]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <span class="text-xs sm:text-sm font-bold text-white">Start / stop listening</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. MID-SECTION: STAY FOCUSED (BRIGHT YELLOW BANNER) -->
+    <section class="bg-[#FFE600] text-black py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div class="max-w-xl">
+          <div class="relative inline-block">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black leading-none">
+              Stay focused<br>in every<br>meeting.
+            </h2>
+            <!-- Black action rays on top right -->
+            <span class="absolute -top-3 -right-8 text-black">
+              <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
+                <line x1="8" y1="20" x2="2" y2="24" />
+                <line x1="14" y1="12" x2="9" y2="4" />
+                <line x1="22" y1="10" x2="27" y2="2" />
+              </svg>
+            </span>
+          </div>
+
+          <p class="mt-4 text-base sm:text-lg font-medium text-black/85">
+            No more constantly checking in or worrying if you were mentioned.
+          </p>
+        </div>
+
+        <div>
+          <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer"
+             class="bg-black hover:bg-neutral-900 text-[#FFE600] font-extrabold px-8 py-4 rounded-full inline-flex items-center gap-2.5 text-base shadow-xl transition-transform hover:-translate-y-0.5">
+            <svg class="w-5 h-5 fill-current text-[#FFE600]" viewBox="0 0 24 24">
+              <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.89-2.607zm14.238 3.342a5.455 5.455 0 0 1 2.376 7.643L13.192 24h.808c6.627 0 12-5.373 12-12 0-.825-.084-1.63-.242-2.408H12.836l3.333 5.772zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/>
+            </svg>
+            Add OiU to Chrome
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. HOW IT WORKS SECTION (BLACK BACKGROUND) -->
+    <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <!-- Left Title -->
+        <div class="md:col-span-5">
+          <div class="relative inline-block">
+            <h2 class="text-5xl sm:text-6xl font-black uppercase tracking-tight text-white leading-none">
+              How it<br>works?
+            </h2>
+            <!-- Hand-drawn yellow curve underline -->
+            <svg class="w-full h-5 text-[#FFE600] mt-2" viewBox="0 0 200 16" fill="none">
+              <path d="M4 12C50 4 150 4 196 12" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Right Timeline Steps -->
+        <div class="md:col-span-7">
+          <div class="relative pl-12 space-y-12">
+            <!-- Continuous Vertical Yellow Line -->
+            <div class="absolute left-4 top-4 bottom-4 w-0.5 bg-[#FFE600]/80"></div>
+
+            <!-- Step 1 -->
+            <div class="relative">
+              <div class="absolute -left-12 top-0 w-8 h-8 rounded-lg bg-black border-2 border-[#FFE600] text-[#FFE600] font-black text-sm flex items-center justify-center">
+                1
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white">Start listening</h3>
+              <p class="text-zinc-400 text-sm sm:text-base mt-1">Turn on OiU during your meeting or class.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative">
+              <div class="absolute -left-12 top-0 w-8 h-8 rounded-lg bg-black border-2 border-[#FFE600] text-[#FFE600] font-black text-sm flex items-center justify-center">
+                2
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white">We listen</h3>
+              <p class="text-zinc-400 text-sm sm:text-base mt-1">OiU listens in real-time for your name or keywords.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative">
+              <div class="absolute -left-12 top-0 w-8 h-8 rounded-lg bg-black border-2 border-[#FFE600] text-[#FFE600] font-black text-sm flex items-center justify-center">
+                3
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white">Get alerted</h3>
+              <p class="text-zinc-400 text-sm sm:text-base mt-1">Receive an instant visual (and optional sound) alert.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. FEATURES YOU'LL USE (BRIGHT YELLOW SECTION) -->
+    <section id="features" class="bg-[#FFE600] text-black py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+        <!-- Left Title -->
+        <div class="md:col-span-5">
+          <h2 class="text-5xl sm:text-6xl font-black uppercase tracking-tight text-black leading-none">
+            Features<br>you'll use.
+          </h2>
+        </div>
+
+        <!-- Right 4 Feature Cards -->
+        <div class="md:col-span-7 space-y-6">
+          <!-- Feature 1 -->
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center flex-shrink-0 text-[#FFE600]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-extrabold text-black">Name & ID tracking</h3>
+              <p class="text-black/85 text-sm sm:text-base font-medium mt-0.5">Track your name, roll number or any keyword.</p>
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center flex-shrink-0 text-[#FFE600]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-extrabold text-black">Visual & audio alerts</h3>
+              <p class="text-black/85 text-sm sm:text-base font-medium mt-0.5">Know the moment you're mentioned.</p>
+            </div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center flex-shrink-0 text-[#FFE600]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-extrabold text-black">Alert history</h3>
+              <p class="text-black/85 text-sm sm:text-base font-medium mt-0.5">Review past mentions with context.</p>
+            </div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center flex-shrink-0 text-[#FFE600]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-extrabold text-black">Lightweight & simple</h3>
+              <p class="text-black/85 text-sm sm:text-base font-medium mt-0.5">Runs smoothly without slowing you down.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. BOTTOM CTA SECTION (BLACK WITH CRESCENT YELLOW GLOW) -->
+    <section class="relative py-28 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
+      <!-- Arched glowing yellow ring / crescent at bottom -->
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-64 yellow-glow-crescent pointer-events-none"></div>
+
+      <!-- Subtle bottom curved yellow arch line matching original design -->
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[850px] h-[300px] border-t-4 border-[#FFE600] rounded-t-[100%] pointer-events-none opacity-90 shadow-[0_-15px_40px_rgba(255,230,0,0.4)]"></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto">
+        <div class="relative inline-block mb-10">
+          <h2 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white leading-tight">
+            Add OiU to Chrome<br>and stay aware.
+          </h2>
+          <!-- Top right action sparks -->
+          <span class="action-sparks -top-3 -right-8">
+            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-[#FFE600]" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
+              <line x1="8" y1="20" x2="2" y2="24" />
+              <line x1="14" y1="12" x2="9" y2="4" />
+              <line x1="22" y1="10" x2="27" y2="2" />
+            </svg>
+          </span>
+        </div>
+
+        <div>
+          <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer"
+             class="bg-[#FFE600] hover:bg-[#ECD500] text-black font-black px-10 py-4 rounded-full inline-flex items-center gap-3 text-lg transition-all transform hover:-translate-y-1 shadow-2xl shadow-[#FFE600]/30">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.89-2.607zm14.238 3.342a5.455 5.455 0 0 1 2.376 7.643L13.192 24h.808c6.627 0 12-5.373 12-12 0-.825-.084-1.63-.242-2.408H12.836l3.333 5.772zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/>
+            </svg>
+            Add OiU to Chrome
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FREQUENTLY ASKED QUESTIONS SECTION -->
+    <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-zinc-900">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">Frequently Asked Questions</h2>
+        <p class="text-zinc-400 text-sm mt-2">Everything you need to know about OiU's meeting awareness technology.</p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full px-6 py-4 text-left font-bold text-white flex items-center justify-between hover:text-[#FFE600] transition-colors">
+            <span>Does OiU send my meeting audio to an external server?</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-sm text-zinc-400 leading-relaxed border-t border-zinc-800/60 pt-3">
+            No. OiU runs entirely inside your browser tab locally. Audio streams and captions are processed on-device in real-time, ensuring zero recordings or transcripts ever leave your computer.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full px-6 py-4 text-left font-bold text-white flex items-center justify-between hover:text-[#FFE600] transition-colors">
+            <span>Which meeting platforms are currently supported?</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-sm text-zinc-400 leading-relaxed border-t border-zinc-800/60 pt-3">
+            OiU officially supports Google Meet, Microsoft Teams for Web, and Zoom Web Client. Support for additional meeting tools and Discord is actively in progress.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full px-6 py-4 text-left font-bold text-white flex items-center justify-between hover:text-[#FFE600] transition-colors">
+            <span>Can I track multiple names or roll numbers at the same time?</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-sm text-zinc-400 leading-relaxed border-t border-zinc-800/60 pt-3">
+            Yes! You can configure multiple active targets: your full name, nicknames, student ID or roll number, project codenames, or specific trigger keywords like "action item" or "urgent".
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full px-6 py-4 text-left font-bold text-white flex items-center justify-between hover:text-[#FFE600] transition-colors">
+            <span>Does it work even if my meeting tab is in the background?</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-sm text-zinc-400 leading-relaxed border-t border-zinc-800/60 pt-3">
+            Yes! That's the entire power of OiU. When you're coding, watching a video, or working on another tab, OiU fires a desktop notification and audio chime the second your name is spoken.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 9. FOOTER -->
+  <footer class="bg-black border-t border-zinc-900 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Left: Logo & Tagline -->
+      <div class="flex items-center gap-3">
+        <svg class="w-7 h-7 text-white" viewBox="0 0 32 32" fill="none">
+          <path d="M7 23V15C7 10.0294 11.0294 6 16 6C20.9706 6 25 10.0294 25 15V23" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-xl font-black text-white">OiU</span>
+        <span class="text-zinc-600">|</span>
+        <span class="text-xs sm:text-sm text-zinc-400 font-medium">Meeting Awareness Assistant</span>
+      </div>
+
+      <!-- Right: Nav links -->
+      <nav class="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-zinc-400 font-medium">
+        <a href="#how-it-works" class="hover:text-[#FFE600] transition-colors">How it works</a>
+        <a href="#features" class="hover:text-[#FFE600] transition-colors">Features</a>
+        <a href="#guide" class="open-guide-btn hover:text-[#FFE600] transition-colors">Guide</a>
+        <a href="#faq" class="hover:text-[#FFE600] transition-colors">FAQ</a>
+      </nav>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-6 pt-6 border-t border-zinc-900/60 text-center text-xs text-zinc-600">
+      &copy; 2026 OiU. Built for distraction-free, focused meetings.
+    </div>
+  </footer>
+
+  <!-- 10. GUIDE MODAL -->
+  <div id="guide-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-zinc-950 border border-zinc-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
+      <button id="close-guide-btn" class="absolute top-5 right-5 text-zinc-400 hover:text-white text-xl font-bold">✕</button>
+      
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-[#FFE600] flex items-center justify-center text-black font-black">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-black text-white">Quick Start Guide</h3>
+          <p class="text-xs text-zinc-400">Get set up with OiU in less than 60 seconds</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-sm text-zinc-300">
+        <div class="flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-[#FFE600] text-black font-extrabold flex items-center justify-center flex-shrink-0 text-xs mt-0.5">1</span>
+          <div>
+            <div class="font-bold text-white">Add Extension to Chrome</div>
+            <p class="text-xs text-zinc-400 mt-0.5">Click "Add to Chrome" to install the extension from the Chrome Web Store.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-[#FFE600] text-black font-extrabold flex items-center justify-center flex-shrink-0 text-xs mt-0.5">2</span>
+          <div>
+            <div class="font-bold text-white">Set Your Name & Keywords</div>
+            <p class="text-xs text-zinc-400 mt-0.5">Click the OiU pin in your Chrome toolbar to enter your name, college roll number, or custom tags.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-[#FFE600] text-black font-extrabold flex items-center justify-center flex-shrink-0 text-xs mt-0.5">3</span>
+          <div>
+            <div class="font-bold text-white">Join Any Meeting & Start Listening</div>
+            <p class="text-xs text-zinc-400 mt-0.5">Open Google Meet, Teams, or Zoom. Click "Start Listening" and multitask in total peace!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-zinc-900">
+        <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer"
+           class="w-full bg-[#FFE600] hover:bg-[#ECD500] text-black font-extrabold py-3 rounded-xl flex items-center justify-center gap-2 text-sm transition-colors">
+          Install OiU Extension Now
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
